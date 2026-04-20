@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 
 const TOTAL_FRAMES = 52
 const FRAME_PATH = (i: number) =>
-  `/frames/frame_${String(i).padStart(4, '0')}.jpg`
+  `/frames/frame_${String(i).padStart(4, '0')}.webp`
 
 interface Panel {
   triggerAt: number
