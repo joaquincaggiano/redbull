@@ -1,8 +1,10 @@
-import './App.css'
-import { Hero } from './components/Hero'
-import { MaxGallery } from './components/MaxGallery'
-import { VerstappenTimeline } from './components/VerstappenTimeline'
-import { Footer } from './components/Footer'
+import "./App.css";
+import {
+  Footer,
+  Hero,
+  MaxGallery,
+  VerstappenTimeline,
+} from "./components/sections";
 
 function App() {
   return (
@@ -12,7 +14,7 @@ function App() {
       <VerstappenTimeline />
       <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
