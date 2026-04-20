@@ -1,4 +1,5 @@
 import "./App.css";
+import { Analytics } from "@vercel/analytics/react";
 import {
   Footer,
   Hero,
@@ -13,6 +14,7 @@ function App() {
       <MaxGallery />
       <VerstappenTimeline />
       <Footer />
+      <Analytics />
     </div>
   );
 }
