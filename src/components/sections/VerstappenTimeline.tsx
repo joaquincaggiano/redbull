@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from "react";
 
 interface TimelineEntry {
-  date: string
-  title: string
-  description: string
+  date: string;
+  title: string;
+  description: string;
 }
 
 const verstappenTimeline: TimelineEntry[] = [
@@ -91,45 +91,62 @@ const verstappenTimeline: TimelineEntry[] = [
     description:
       "Se consagra tetracampeón en el GP de Las Vegas 2024 con 9 victorias en la temporada, resistiendo un fuerte desafío de Lando Norris y McLaren a pesar de un Red Bull menos dominante que en años anteriores.",
   },
-]
+];
 
-const CHAMPION_YEARS = new Set(["2021", "2022", "2023", "2024"])
+const CHAMPION_YEARS = new Set(["2021", "2022", "2023", "2024"]);
 
 function formatDate(raw: string): string {
-  if (raw.includes('-')) {
-    const [year, month] = raw.split('-')
-    const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC']
-    return `${months[parseInt(month, 10) - 1]} ${year}`
+  if (raw.includes("-")) {
+    const [year, month] = raw.split("-");
+    const months = [
+      "ENE",
+      "FEB",
+      "MAR",
+      "ABR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AGO",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DIC",
+    ];
+    return `${months[parseInt(month, 10) - 1]} ${year}`;
   }
-  return raw
+  return raw;
 }
 
 export function VerstappenTimeline() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+  const sectionRef = useRef<HTMLElement>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('tl-item--visible')
-            observer.unobserve(entry.target)
+            entry.target.classList.add("tl-item--visible");
+            observer.unobserve(entry.target);
           }
-        })
+        });
       },
-      { threshold: 0.18, rootMargin: '0px 0px -60px 0px' }
-    )
+      { threshold: 0.18, rootMargin: "0px 0px -60px 0px" },
+    );
 
     itemRefs.current.forEach((el) => {
-      if (el) observer.observe(el)
-    })
+      if (el) observer.observe(el);
+    });
 
-    return () => observer.disconnect()
-  }, [])
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="tl-section" ref={sectionRef} aria-label="Trayectoria de Max Verstappen">
+    <section
+      className="tl-section"
+      ref={sectionRef}
+      aria-label="Trayectoria de Max Verstappen"
+    >
       {/* Section header */}
       <div className="tl-header">
         <span className="tl-header-eyebrow">Oracle Red Bull Racing</span>
@@ -143,14 +160,16 @@ export function VerstappenTimeline() {
         <div className="tl-spine" aria-hidden="true" />
 
         {verstappenTimeline.map((entry, i) => {
-          const isChamp = CHAMPION_YEARS.has(entry.date.split('-')[0])
-          const isRight = i % 2 === 0
+          const isChamp = CHAMPION_YEARS.has(entry.date.split("-")[0]);
+          const isRight = i % 2 === 0;
 
           return (
             <div
               key={`${entry.date}-${i}`}
-              ref={(el) => { itemRefs.current[i] = el }}
-              className={`tl-item${isRight ? ' tl-item--right' : ' tl-item--left'}${isChamp ? ' tl-item--champ' : ''}`}
+              ref={(el) => {
+                itemRefs.current[i] = el;
+              }}
+              className={`tl-item${isRight ? " tl-item--right" : " tl-item--left"}${isChamp ? " tl-item--champ" : ""}`}
             >
               {/* Card */}
               <div className="tl-card">
@@ -160,8 +179,14 @@ export function VerstappenTimeline() {
                 <p className="tl-card-desc">{entry.description}</p>
                 {isChamp && (
                   <div className="tl-champ-badge" aria-label="Título Mundial">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    <svg
+                      width="14"
+                      height="14"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                     </svg>
                     Campeón del Mundo
                   </div>
@@ -173,9 +198,9 @@ export function VerstappenTimeline() {
                 <div className="tl-dot-inner" />
               </div>
             </div>
-          )
+          );
         })}
       </div>
     </section>
-  )
+  );
 }
